@@ -13,6 +13,7 @@ tqdm = "*"
 flask = "*"
 flask-restful = "*"
 dateparser = "*"
+flask-cors = "*"
 
 [requires]
 python_version = "3.6"

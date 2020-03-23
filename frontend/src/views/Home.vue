@@ -1,18 +1,31 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
+  <div class="align-middle">
+    <h1 class="font-sans">Twitter Disinformation Archive</h1>
+    <SearchBox />
+    {{ searchParameters }}
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from "@/components/HelloWorld.vue";
+import SearchBox from "@/components/SearchBox.vue";
 
 export default {
   name: "Home",
   components: {
-    HelloWorld
+    SearchBox
+  },
+  data() {
+    return {
+      searchParameters: {
+        query: ""
+      }
+    };
+  },
+  methods: {
+    redirect() {
+      let query = encodeURI(this.searchParameters.query);
+      this.$router.push(`/search?query=${query}`);
+    }
   }
 };
 </script>

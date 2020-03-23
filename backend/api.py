@@ -7,11 +7,13 @@ import datetime
 import json
 import dateparser
 from flask import Flask, make_response
+from flask_cors import CORS
 from flask_restful import Resource, Api, reqparse
 
 app = Flask(__name__)
 api = Api(app)
 db = database.get_client()["twitter"]
+CORS(app)
 
 
 @api.representation("application/json")
@@ -154,6 +156,9 @@ class SearchResource(Resource):
 
         if args["account"] != None:
             params["userid"] = {"$in": args["account"]}
+
+        if type(args["sort"]) == str:
+            args["sort"] = [args["sort"]]
 
         return {
             "total": db.tweets.count_documents(params),
