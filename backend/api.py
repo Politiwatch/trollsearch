@@ -183,6 +183,7 @@ class StatsResource(Resource):
                 }
                 for archive in db.tweets.distinct("_archive")
             ],
+            "languages": db.tweets.distinct("tweet_language")
         }
 
 
