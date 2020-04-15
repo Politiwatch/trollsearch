@@ -1,6 +1,6 @@
 <template>
   <div class="align-middle">
-    <h1 class="font-sans">Twitter Disinformation Archive</h1>
+    <h1 class="heading">Twitter Disinformation Archive</h1>
     <SearchBox />
     {{ searchParameters }}
   </div>

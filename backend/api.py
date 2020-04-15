@@ -121,33 +121,33 @@ class SearchResource(Resource):
 
         time_range = {}
         if args["min_time"] != None:
-            time_range["$gt"] = args["min_time"]
+            time_range["$gte"] = args["min_time"]
         if args["max_time"] != None:
-            time_range["$lt"] = args["max_time"]
+            time_range["$lte"] = args["max_time"]
         if time_range != {}:
             params["tweet_time"] = time_range
 
         like_range = {}
         if args["min_likes"] != None:
-            like_range["$gt"] = args["min_likes"]
+            like_range["$gte"] = args["min_likes"]
         if args["max_likes"] != None:
-            like_range["$lt"] = args["max_likes"]
+            like_range["$lte"] = args["max_likes"]
         if like_range != {}:
             params["like_count"] = like_range
 
         follower_range = {}
         if args["min_followers"] != None:
-            follower_range["$gt"] = args["min_followers"]
+            follower_range["$gte"] = args["min_followers"]
         if args["max_followers"] != None:
-            follower_range["$lt"] = args["max_followers"]
+            follower_range["$lte"] = args["max_followers"]
         if follower_range != {}:
             params["follower_count"] = follower_range
 
         retweet_range = {}
         if args["min_retweets"] != None:
-            retweet_range["$gt"] = args["min_retweets"]
+            retweet_range["$gte"] = args["min_retweets"]
         if args["max_retweets"] != None:
-            retweet_range["$lt"] = args["max_retweets"]
+            retweet_range["$lte"] = args["max_retweets"]
         if retweet_range != {}:
             params["retweet_count"] = retweet_range
 

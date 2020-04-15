@@ -1,17 +1,23 @@
 <template>
-  <section class="search">
-    <h1 class="font-sans">Search results</h1>
-    <SearchBox />
-    <hr />
-    <div v-if="loading">
-      <p>Please wait... loading...</p>
-    </div>
-    <div v-if="!loading">
-      <p>There are {{ total }} total results.</p>
-      <Tweet v-for="tweet in results" :key="tweet.tweetid" :data="tweet" />
-      <button @click="loadMore" v-if="results.length < total">Load more...</button>
-      <p v-if="results.length >= total">No more tweets to display.</p>
-    </div>
+  <section class="search md:flex">
+    <aside
+      class="md:w-1/3 mb-4 overflow-y-auto pr-4 py-8 pl-1 md:sticky top-0 h-auto self-start"
+    >
+      <SearchBox />
+    </aside>
+    <main class="md:w-2/3 md:pl-12">
+      <div v-if="loading">
+        <p>Please wait... loading...</p>
+      </div>
+      <div v-if="!loading">
+        <p>There are {{ total.toLocaleString() }} total results.</p>
+        <Tweet v-for="tweet in results" :key="tweet.tweetid" :data="tweet" />
+        <button @click="loadMore" v-if="results.length < total">
+          Load more...
+        </button>
+        <p v-if="results.length >= total">No more tweets to display.</p>
+      </div>
+    </main>
   </section>
 </template>
 
@@ -39,11 +45,14 @@ export default {
       };
     },
     search() {
+      let params = {
+        page: this.page,
+      };
+      for (let key of Object.keys(this.$route.query)) {
+        params[key] = this.$route.query[key];
+      }
       performQuery(
-        {
-          query: this.$route.query.query,
-          page: this.page
-        },
+        params,
         resp => {
           this.results.push(...resp.results);
           this.total = resp.total;
