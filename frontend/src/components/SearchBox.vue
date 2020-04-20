@@ -23,7 +23,20 @@
           :options="stats.languages"
           @input="update"
           :multiple="true"
+          :custom-label="languageName"
           placeholder="Select languages to include"
+        >
+        </multiselect>
+      </div>
+      <div>
+        <p class="label">Archive</p>
+        <multiselect
+          v-model="archives"
+          :options="stats.archiveNames"
+          @input="update"
+          :multiple="true"
+          :custom-label="archiveName"
+          placeholder="Select archives to include"
         >
         </multiselect>
       </div>
@@ -88,7 +101,7 @@
         </div>
       </div>
     </div>
-    {{ stats }}
+    {{stats}}
   </section>
 </template>
 
@@ -96,6 +109,8 @@
 import debounce from "debounce";
 import DatePicker from "v-calendar/lib/components/date-picker.umd";
 import Multiselect from "vue-multiselect";
+import languageNames from "../assets/languages";
+import archiveNames from "../assets/archives";
 
 let encodeSearchUriParameters = (values) => {
   let builtParams = [];
@@ -141,6 +156,7 @@ export default {
       minFollowers: this.$route.query.min_followers,
       maxFollowers: this.$route.query.max_followers,
       languages: this.$route.query.language || [],
+      archives: this.$route.query.archive || [],
       timeRange: {
         start: new Date(this.$route.query.min_time),
         end: new Date(this.$route.query.max_time),
@@ -149,6 +165,13 @@ export default {
     };
   },
   methods: {
+    languageName: function(langCode) {
+      return (languageNames[langCode] || { name: "Unknown" }).name;
+    },
+    archiveName: function(archiveCode) {
+      console.log(archiveCode);
+      return (archiveNames[archiveCode] || {name: "Unknown"}).name;
+    },
     performSearch: function() {
       let builtParams = encodeSearchUriParameters({
         query: this.query,
@@ -159,6 +182,7 @@ export default {
         min_followers: this.minFollowers,
         max_followers: this.maxFollowers,
         language: this.languages,
+        archive: this.archives,
         min_time: this.timeRange === null ? null : this.timeRange.start,
         max_time: this.timeRange === null ? null : this.timeRange.end,
       });

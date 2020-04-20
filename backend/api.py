@@ -111,7 +111,7 @@ class SearchResource(Resource):
         params = {}
 
         if args["archive"] != None:
-            params["archive"] = {"$in": args["archive"]}
+            params["_archive"] = {"$in": args["archive"]}
 
         if args["language"] != None:
             params["tweet_language"] = {"$in": args["language"]}
@@ -183,7 +183,7 @@ class StatsResource(Resource):
                 }
                 for archive in db.tweets.distinct("_archive")
             ],
-            "languages": db.tweets.distinct("tweet_language")
+            "languages": [lang for lang in db.tweets.distinct("tweet_language") if lang.strip() != ""]
         }
 
 

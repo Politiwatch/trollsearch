@@ -29,8 +29,12 @@ export default {
     loadInitialData() {
       getStats(
         result => {
-          localStorage.setItem("stats", JSON.stringify(result));
-          this.stats = result;
+          let stats = {
+            archiveNames: result["archives"].map(x => x.name),
+            ...result
+          };
+          localStorage.setItem("stats", JSON.stringify(stats));
+          this.stats = stats;
           this.loading = false;
         },
         error => {
