@@ -46,19 +46,16 @@ export default {
     },
     search() {
       let params = {
-        page: this.page,
+        page: this.page
       };
       for (let key of Object.keys(this.$route.query)) {
         params[key] = this.$route.query[key];
       }
-      performQuery(
-        params,
-        resp => {
-          this.results.push(...resp.results);
-          this.total = resp.total;
-          this.loading = false;
-        }
-      );
+      performQuery(params, resp => {
+        this.results.push(...resp.results);
+        this.total = resp.total;
+        this.loading = false;
+      });
     },
     loadMore() {
       this.page++;

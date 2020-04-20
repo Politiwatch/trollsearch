@@ -101,7 +101,6 @@
         </div>
       </div>
     </div>
-    {{stats}}
   </section>
 </template>
 
@@ -112,7 +111,7 @@ import Multiselect from "vue-multiselect";
 import languageNames from "../assets/languages";
 import archiveNames from "../assets/archives";
 
-let encodeSearchUriParameters = (values) => {
+let encodeSearchUriParameters = values => {
   let builtParams = [];
   for (let key of Object.keys(values)) {
     if (values[key] != undefined && values[key] != null && values[key] != "") {
@@ -144,7 +143,7 @@ export default {
   name: "SearchBox",
   components: {
     DatePicker,
-    Multiselect,
+    Multiselect
   },
   data() {
     return {
@@ -159,9 +158,9 @@ export default {
       archives: this.$route.query.archive || [],
       timeRange: {
         start: new Date(this.$route.query.min_time),
-        end: new Date(this.$route.query.max_time),
+        end: new Date(this.$route.query.max_time)
       },
-      stats: JSON.parse(localStorage.getItem("stats")),
+      stats: JSON.parse(localStorage.getItem("stats"))
     };
   },
   methods: {
@@ -170,7 +169,7 @@ export default {
     },
     archiveName: function(archiveCode) {
       console.log(archiveCode);
-      return (archiveNames[archiveCode] || {name: "Unknown"}).name;
+      return (archiveNames[archiveCode] || { name: "Unknown" }).name;
     },
     performSearch: function() {
       let builtParams = encodeSearchUriParameters({
@@ -184,21 +183,21 @@ export default {
         language: this.languages,
         archive: this.archives,
         min_time: this.timeRange === null ? null : this.timeRange.start,
-        max_time: this.timeRange === null ? null : this.timeRange.end,
+        max_time: this.timeRange === null ? null : this.timeRange.end
       });
       if (builtParams.trim().length == 0) {
         this.$router.push("/", {
-          force: true,
+          force: true
         });
       } else {
         this.$router.push(`/search?${builtParams}`, {
-          force: true,
+          force: true
         });
       }
     },
     update: debounce(function() {
       this.performSearch();
-    }, 300),
-  },
+    }, 300)
+  }
 };
 </script>

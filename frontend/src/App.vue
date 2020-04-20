@@ -15,14 +15,14 @@
 </template>
 
 <script>
-import {getStats} from "./api";
+import { getStats } from "./api";
 
 export default {
   name: "App",
   data() {
     return {
       loading: true,
-      error: false,
+      error: false
     };
   },
   methods: {
@@ -43,10 +43,10 @@ export default {
           this.error = true;
         }
       );
-    },
+    }
   },
   created() {
     this.loadInitialData();
-  },
+  }
 };
 </script>

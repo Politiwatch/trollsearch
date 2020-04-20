@@ -1,16 +1,76 @@
 <template>
-  <section class="card ~neutral !low my-4">
-    <p v-html="data.tweet_text"></p>
-    <p>{{data.retweet_count}} retweets</p>
-    <p>{{data.like_count}} likes</p>
-    <p>{{data.follower_count}} followers</p>
-    <p>{{data.tweet_time}}</p>
+  <section class="card ~neutral !low my-4 relative">
+    <div class="flex justify-between">
+      <p @mouseenter="userDetail = true" @mouseleave="userDetail = false">
+        <span v-if="data.user_display_name == data.userid" class="">
+          @{{ data.user_display_name.slice(0, 8)
+          }}<span v-if="userDetail">&hellip; </span>
+          <span
+            v-if="userDetail"
+            title="To preserve privacy, Twitter account names are anonymized."
+            >(anonymized)</span
+          >
+        </span>
+        <span v-else-if="data.user_display_name == data.userid" class="">
+          @{{ data.user_screen_name }}
+        </span>
+        <span v-if="userDetail">
+          &bull; {{ data.follower_count.toLocaleString() }} followers
+        </span>
+      </p>
+    </div>
+    <p
+      v-html="data.tweet_text"
+      class="mb-4 mt-2 leading-snug text-gray-900 text-2xl"
+    ></p>
+    <div class="flex text-gray-600">
+      <p class="mr-6">
+        <span :title="data.tweet_time">{{
+          data.tweet_time.split(" ")[0]
+        }}</span>
+      </p>
+      <p class="mr-6">
+        <span class="icon">
+          <font-awesome-icon icon="comment" class="text-gray-600" size="sm" />
+        </span>
+        {{ data.reply_count }}
+      </p>
+      <p class="mr-6">
+        <span class="icon">
+          <font-awesome-icon icon="retweet" class="text-gray-600" size="sm" />
+        </span>
+        {{ data.retweet_count }}
+      </p>
+      <p class="mr-6">
+        <span class="icon">
+          <font-awesome-icon icon="heart" class="text-gray-600" size="sm" />
+        </span>
+        {{ data.like_count }}
+      </p>
+    </div>
   </section>
 </template>
 
 <script>
+import { library } from "@fortawesome/fontawesome-svg-core";
+import {
+  faRetweet,
+  faHeart,
+  faComment
+} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
+
 export default {
   props: ["data"],
-  name: "Tweet"
+  name: "Tweet",
+  components: { FontAwesomeIcon },
+  data() {
+    return {
+      userDetail: false
+    };
+  },
+  created() {
+    library.add(faRetweet, faHeart, faComment);
+  }
 };
 </script>

@@ -1,5 +1,5 @@
 export default {
-    "bangladesh_2019": {
-        name: "Bangladesh (2019)",
-    }
-}
+  bangladesh_2019: {
+    name: "Bangladesh (2019)"
+  }
+};

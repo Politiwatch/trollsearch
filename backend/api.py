@@ -163,7 +163,7 @@ class SearchResource(Resource):
         return {
             "total": db.tweets.count_documents(params),
             "results": list(
-                db.tweets.find(params).sort(*args["sort"]).skip((args["page"] or 0) * 25).limit(25)
+                db.tweets.find(params).sort("like_count", -1).skip((args["page"] or 0) * 25).limit(25)
             ),
         }
 
