@@ -78,9 +78,12 @@ def clean_row(raw, archive):
     return raw
 
 
-def read_csv(csvfile, archive):
+def process_csv(csvfile, archive, function, batch_size=1000):
     reader = unicodecsv.DictReader(csvfile)
-    tweets = []
+    queue = []
     for row in tqdm(reader):
-        tweets.append(clean_row(row, archive))
-    return tweets
+        queue.append(clean_row(row, archive))
+        if len(queue) >= batch_size:
+            function(queue)
+            queue = []
+    function(queue)

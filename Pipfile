@@ -5,6 +5,7 @@ verify_ssl = true
 
 [dev-packages]
 black = "*"
+pylint = "*"
 
 [packages]
 unicodecsv = "*"
@@ -14,9 +15,6 @@ flask = "*"
 flask-restful = "*"
 dateparser = "*"
 flask-cors = "*"
-
-[requires]
-python_version = "3.6"
 
 [pipenv]
 allow_prereleases = true

@@ -13,17 +13,20 @@ def batch_insert(file, archive_name):
     print("Creating indexes...")
     db.tweets.create_index([("$**", pymongo.TEXT)], name="text_index")
 
-    print("Loading tweets...")
-    tweets = csv_reader.read_csv(file, archive_name)
-
-    print("Inserting tweets into database...")
-    for tweet in tqdm(tweets):
+    print("Loading & inserting tweets...")
+    def _insert(queue):
         try:
-            db.tweets.insert_one(tweet)
+            db.tweets.insert_many(queue)
         except Exception as e:
-            # print("Some issues occured while inserting the tweets:")
-            # print(e)
-            pass
+            print(e)
+            # Try individually
+            for item in queue:
+                try:
+                    db.tweets.insert_one(item)
+                except Exception as e2:
+                    # print(e2)
+                    pass
+    csv_reader.process_csv(file, archive_name, _insert, batch_size=20000)
 
     print("Done!")
 
