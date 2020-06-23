@@ -1,16 +1,17 @@
 <template>
   <section class="search md:flex">
     <aside
-      class="md:w-1/3 mb-4 overflow-y-auto pr-4 py-8 pl-1 md:sticky top-0 h-auto self-start"
+      class="top-0 self-start h-auto py-8 pl-1 pr-4 mb-4 overflow-y-auto md:w-1/3 md:sticky"
     >
       <SearchBox />
+      <hr class="h-6 sep">
+      <SearchStats :languages="languages" :hashtags="hashtags" :archives="archives" :total="total" />
     </aside>
     <main class="md:w-2/3 md:pl-12">
       <div v-if="loading">
         <p>Please wait... loading...</p>
       </div>
       <div v-if="!loading">
-        <p>There are {{ total.toLocaleString() }} total results.</p>
         <Tweet v-for="tweet in results" :key="tweet.tweetid" :data="tweet" />
         <button @click="loadMore" v-if="results.length < total">
           Load more...
@@ -23,6 +24,7 @@
 
 <script>
 import SearchBox from "@/components/SearchBox.vue";
+import SearchStats from "@/components/SearchStats.vue";
 import Tweet from "@/components/Tweet.vue";
 import performQuery from "@/api.js";
 
@@ -30,7 +32,8 @@ export default {
   name: "Search",
   components: {
     SearchBox,
-    Tweet
+    Tweet,
+    SearchStats,
   },
   data() {
     return this.defaults();
@@ -40,6 +43,9 @@ export default {
       return {
         results: [],
         total: null,
+        archives: {},
+        languages: {},
+        hashtags: {},
         loading: true,
         page: 0
       };
@@ -53,6 +59,9 @@ export default {
       }
       performQuery(params, resp => {
         this.results.push(...resp.results);
+        this.archives = resp.archives;
+        this.languages = resp.languages;
+        this.hashtags = resp.hashtags;
         this.total = resp.total;
         this.loading = false;
       });

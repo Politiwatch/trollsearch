@@ -1,9 +1,10 @@
 <template>
   <section>
-    <div class="grid grid-cols-1 gap-6 card ~neutral !low">
+    <div class="card ~neutral !low">
       <div>
+        <p class="mb-1 label">Search</p>
         <input
-          class="input text-2xl"
+          class="text-2xl input"
           type="search"
           v-model="query"
           @input="update"
@@ -11,95 +12,97 @@
           autofocus="autofocus"
         />
       </div>
-      <div>
-        <p class="label">Time range</p>
-        <DatePicker v-model="timeRange" mode="range" @input="update">
-        </DatePicker>
-      </div>
-      <div>
-        <p class="label">Languages</p>
-        <multiselect
-          v-model="languages"
-          :options="stats.languages"
-          @input="update"
-          :multiple="true"
-          :custom-label="languageName"
-          placeholder="Select languages to include"
-        >
-        </multiselect>
-      </div>
-      <div>
-        <p class="label">Archive</p>
-        <multiselect
-          v-model="archives"
-          :options="stats.archiveNames"
-          @input="update"
-          :multiple="true"
-          :custom-label="archiveName"
-          placeholder="Select archives to include"
-        >
-        </multiselect>
-      </div>
-      <div>
-        <p class="label">Likes</p>
-        <div class="flex justify-between items-center">
-          <input
-            class="flex-grow input"
-            v-model="minLikes"
-            v-on:input="update"
-            type="number"
-            placeholder="Min likes"
-          />
-          <span class="px-2">to</span>
-          <input
-            class="flex-grow input"
-            v-model="maxLikes"
-            v-on:input="update"
-            type="number"
-            placeholder="Max likes"
-          />
+      <details class="mt-2">
+        <summary class="cursor-pointer">Advanced search options</summary>
+        <div class="grid grid-cols-1 gap-6 mt-1">
+          <div>
+            <p class="mb-1 label">Time range</p>
+            <DatePicker v-model="timeRange" mode="range" @input="update"></DatePicker>
+          </div>
+          <div>
+            <p class="mb-1 label">Languages</p>
+            <multiselect
+              v-model="languages"
+              :options="stats.languages"
+              @input="update"
+              :multiple="true"
+              :custom-label="languageName"
+              placeholder="Select languages to include"
+            ></multiselect>
+          </div>
+          <div>
+            <p class="mb-1 label">Archive</p>
+            <multiselect
+              v-model="archives"
+              :options="stats.archiveNames"
+              @input="update"
+              :multiple="true"
+              :custom-label="archiveName"
+              placeholder="Select archives to include"
+            ></multiselect>
+          </div>
+          <div>
+            <p class="mb-1 label">Likes</p>
+            <div class="flex items-center justify-between">
+              <input
+                class="flex-grow input"
+                v-model="minLikes"
+                v-on:input="update"
+                type="number"
+                placeholder="Min likes"
+              />
+              <span class="px-2">to</span>
+              <input
+                class="flex-grow input"
+                v-model="maxLikes"
+                v-on:input="update"
+                type="number"
+                placeholder="Max likes"
+              />
+            </div>
+          </div>
+          <div>
+            <p class="mb-1 label">Retweets</p>
+            <div class="flex items-center justify-between">
+              <input
+                class="flex-grow input"
+                v-model="minRetweets"
+                v-on:input="update"
+                type="number"
+                placeholder="Min retweets"
+              />
+              <span class="px-2">to</span>
+              <input
+                class="flex-grow input"
+                v-model="maxRetweets"
+                v-on:input="update"
+                type="number"
+                placeholder="Max retweets"
+              />
+            </div>
+          </div>
+          <div>
+            <p class="mb-1 label">Followers</p>
+            <div class="flex items-center justify-between">
+              <input
+                class="flex-grow input"
+                v-model="minFollowers"
+                v-on:input="update"
+                type="number"
+                placeholder="Min followers"
+              />
+              <span class="px-2">to</span>
+              <input
+                class="flex-grow input"
+                v-model="maxFollowers"
+                v-on:input="update"
+                type="number"
+                placeholder="Max followers"
+              />
+            </div>
+          </div>
         </div>
-      </div>
-      <div>
-        <p class="label">Retweets</p>
-        <div class="flex justify-between items-center">
-          <input
-            class="flex-grow input"
-            v-model="minRetweets"
-            v-on:input="update"
-            type="number"
-            placeholder="Min retweets"
-          />
-          <span class="px-2">to</span>
-          <input
-            class="flex-grow input"
-            v-model="maxRetweets"
-            v-on:input="update"
-            type="number"
-            placeholder="Max retweets"
-          />
-        </div>
-      </div>
-      <div>
-        <p class="label">Followers</p>
-        <div class="flex justify-between items-center">
-          <input
-            class="flex-grow input"
-            v-model="minFollowers"
-            v-on:input="update"
-            type="number"
-            placeholder="Min followers"
-          />
-          <span class="px-2">to</span>
-          <input
-            class="flex-grow input"
-            v-model="maxFollowers"
-            v-on:input="update"
-            type="number"
-            placeholder="Max followers"
-          />
-        </div>
-      </div>
+      </details>
     </div>
   </section>
 </template>

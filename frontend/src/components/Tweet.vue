@@ -2,16 +2,15 @@
   <section class="card ~neutral !low my-4 relative">
     <div class="flex justify-between">
       <p @mouseenter="userDetail = true" @mouseleave="userDetail = false">
-        <span v-if="data.user_display_name == data.userid" class="">
-          @{{ data.user_display_name.slice(0, 8)
-          }}<span v-if="userDetail">&hellip; </span>
+        <span v-if="data.user_display_name === data.userid" class="">
+          @{{data.user_display_name.slice(0, 8)}}<span v-if="userDetail">&hellip; </span>
           <span
             v-if="userDetail"
             title="To preserve privacy, Twitter account names are anonymized."
             >(anonymized)</span
           >
         </span>
-        <span v-else-if="data.user_display_name == data.userid" class="">
+        <span v-if="data.user_display_name !== data.userid" class="">
           @{{ data.user_screen_name }}
         </span>
         <span v-if="userDetail">
@@ -21,7 +20,7 @@
     </div>
     <p
       v-html="data.tweet_text"
-      class="mb-4 mt-2 leading-snug text-gray-900 text-2xl"
+      class="mt-2 mb-4 text-lg text-gray-900"
     ></p>
     <div class="flex text-gray-600">
       <p class="mr-6">

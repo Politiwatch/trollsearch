@@ -165,6 +165,24 @@ class SearchResource(Resource):
             "results": list(
                 db.tweets.find(params).sort("like_count", -1).skip((args["page"] or 0) * 25).limit(25)
             ),
+            "archives": [{a["_id"]: a["count"]} for a in
+                db.tweets.aggregate([
+                    {"$match": params},
+                    {"$unwind": "$_archive"},
+                    {"$group": {"_id": "$_archive", "count": {"$sum": 1}}},
+                ])],
+            "languages": [{a["_id"]: a["count"]} for a in
+                db.tweets.aggregate([
+                    {"$match": params},
+                    {"$unwind": "$tweet_language"},
+                    {"$group": {"_id": "$tweet_language", "count": {"$sum": 1}}},
+                ])],
+            "hashtags": [{a["_id"]: a["count"]} for a in
+                db.tweets.aggregate([
+                    {"$match": params},
+                    {"$unwind": "$hashtags"},
+                    {"$group": {"_id": "$hashtags", "count": {"$sum": 1}}},
+                ])]
         }
 
 
