@@ -5,7 +5,7 @@ import json
 import math
 
 def _to_int(num):
-    round(float(num))
+    return round(float(num))
 
 def _strip_chars(chars, text):
     if text == None:
