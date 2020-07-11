@@ -1,24 +1,16 @@
 <template>
   <section class="search md:flex">
-    <main class="md:w-2/3 md:pl-12">
-      <div v-if="loading">
-        <p>Please wait... loading...</p>
-      </div>
-      <div v-if="!loading">
-        <p class="pt-8 pb-4">There are {{ total.toLocaleString() }} total results.</p>
-        <Tweet v-for="tweet in results" :key="tweet.tweetid" :data="tweet" />
-        <button @click="loadMore" v-if="results.length < total">
-          Load more...
-        </button>
-        <p v-if="results.length >= total">No more tweets to display.</p>
-      </div>
-    </main>
-    <aside
-      class="top-0 self-start h-auto py-8 pl-1 pr-4 mb-4 overflow-y-auto md:w-1/3 md:sticky"
-    >
-      <hr class="h-6 sep">
+    <div v-if="loading">
+      <p>Please wait... loading...</p>
+    </div>
+    <div v-if="!loading">
+      <p class="pt-8 pb-4">There are {{ total.toLocaleString() }} total results.</p>
       <SearchStats :languages="languages" :hashtags="hashtags" :archives="archives" :total="total" />
-    </aside>
+      <hr class="h-4 sep" />
+      <Tweet v-for="tweet in results" :key="tweet.tweetid" :data="tweet" />
+      <button @click="loadMore" v-if="results.length < total" class="button ~urge" :class="{ loading: searching }">Load more...</button>
+      <p v-if="results.length >= total">No more tweets to display.</p>
+    </div>
   </section>
 </template>
 
@@ -31,7 +23,7 @@ export default {
   name: "Search",
   components: {
     Tweet,
-    SearchStats,
+    SearchStats
   },
   data() {
     return this.defaults();
@@ -45,10 +37,12 @@ export default {
         languages: {},
         hashtags: {},
         loading: true,
+        searching: true,
         page: 0
       };
     },
     search() {
+      this.searching = true;
       let params = {
         page: this.page
       };
@@ -62,6 +56,7 @@ export default {
         this.hashtags = resp.hashtags;
         this.total = resp.total;
         this.loading = false;
+        this.searching = false;
       });
     },
     loadMore() {
