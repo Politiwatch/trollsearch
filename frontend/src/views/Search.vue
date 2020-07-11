@@ -1,17 +1,11 @@
 <template>
   <section class="search md:flex">
-    <aside
-      class="top-0 self-start h-auto py-8 pl-1 pr-4 mb-4 overflow-y-auto md:w-1/3 md:sticky"
-    >
-      <SearchBox />
-      <hr class="h-6 sep">
-      <SearchStats :languages="languages" :hashtags="hashtags" :archives="archives" :total="total" />
-    </aside>
     <main class="md:w-2/3 md:pl-12">
       <div v-if="loading">
         <p>Please wait... loading...</p>
       </div>
       <div v-if="!loading">
+        <p class="pt-8 pb-4">There are {{ total.toLocaleString() }} total results.</p>
         <Tweet v-for="tweet in results" :key="tweet.tweetid" :data="tweet" />
         <button @click="loadMore" v-if="results.length < total">
           Load more...
@@ -19,11 +13,16 @@
         <p v-if="results.length >= total">No more tweets to display.</p>
       </div>
     </main>
+    <aside
+      class="top-0 self-start h-auto py-8 pl-1 pr-4 mb-4 overflow-y-auto md:w-1/3 md:sticky"
+    >
+      <hr class="h-6 sep">
+      <SearchStats :languages="languages" :hashtags="hashtags" :archives="archives" :total="total" />
+    </aside>
   </section>
 </template>
 
 <script>
-import SearchBox from "@/components/SearchBox.vue";
 import SearchStats from "@/components/SearchStats.vue";
 import Tweet from "@/components/Tweet.vue";
 import performQuery from "@/api.js";
@@ -31,7 +30,6 @@ import performQuery from "@/api.js";
 export default {
   name: "Search",
   components: {
-    SearchBox,
     Tweet,
     SearchStats,
   },

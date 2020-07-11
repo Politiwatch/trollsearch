@@ -2,7 +2,6 @@
   <section>
     <div class="card ~neutral !low">
       <div>
-        <p class="mb-1 label">Search</p>
         <input
           class="text-2xl input"
           type="search"
@@ -200,7 +199,7 @@ export default {
     },
     update: debounce(function() {
       this.performSearch();
-    }, 300)
+    }, 750)
   }
 };
 </script>

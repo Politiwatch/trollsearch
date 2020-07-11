@@ -1,6 +1,5 @@
 <template>
   <section>
-    <p>There are {{ total.toLocaleString() }} total results.</p>
     <p>{{languages}}</p>
     <hr class="h-6 sep" />
     <pie-chart :chart-data="languageChartData" />

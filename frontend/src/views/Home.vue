@@ -1,18 +1,13 @@
 <template>
-  <div class="align-middle">
-    <h1 class="heading">Twitter Disinformation Archive</h1>
-    <SearchBox />
-    {{ searchParameters }}
+  <div class="content">
+    <h3>Disinformation runs rampant online. We make exploring it possible.</h3>
   </div>
 </template>
 
 <script>
-import SearchBox from "@/components/SearchBox.vue";
-
 export default {
   name: "Home",
   components: {
-    SearchBox
   },
   data() {
     return {
