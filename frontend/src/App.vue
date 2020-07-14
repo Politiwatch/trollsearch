@@ -3,19 +3,20 @@
     <nav class="py-8 section ~urge !high w-full px-8" v-if="!loading">
       <div class="max-w-3xl mx-auto">
         <div class="text-center">
-        <h2 class="tracking-wide uppercase heading">
-          <router-link to="/">Twitter Disinformation Archives</router-link>
-        </h2>
-        <p class="supra">
-          By <a href="https://politiwatch.org">Politiwatch</a>
-        </p>
+          <h2 class="tracking-wide uppercase heading">
+            <router-link to="/">Twitter Disinformation Archives</router-link>
+          </h2>
+          <p class="supra">
+            By
+            <a href="https://politiwatch.org">Politiwatch</a>
+          </p>
         </div>
         <div class="mt-8 mb-4">
           <SearchBox />
         </div>
       </div>
     </nav>
-    <section class="container max-w-3xl min-h-screen py-12 mx-auto lg:my-30">
+    <section class="container lg:max-w-3xl min-h-screen py-12 max-w-full px-4 lg:mx-auto lg:my-30">
       <router-view v-if="!loading && !error" />
 
       <article class="card ~critical !high content max-w-lg mx-auto" v-if="error">

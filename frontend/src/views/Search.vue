@@ -4,9 +4,9 @@
       <p>Please wait... loading...</p>
     </div>
     <div v-if="!loading">
-      <p class="pt-8 pb-4">There are {{ total.toLocaleString() }} total results.</p>
+      <p class="pb-8 text-center">There are {{ total.toLocaleString() }} total results.</p>
       <SearchStats :languages="languages" :hashtags="hashtags" :archives="archives" :total="total" />
-      <hr class="h-4 sep" />
+      <hr class="h-8 sep" />
       <Tweet v-for="tweet in results" :key="tweet.tweetid" :data="tweet" />
       <button @click="loadMore" v-if="results.length < total" class="button ~urge" :class="{ loading: searching }">Load more...</button>
       <p v-if="results.length >= total">No more tweets to display.</p>
@@ -53,6 +53,7 @@ export default {
         this.results.push(...resp.results);
         this.archives = resp.archives;
         this.languages = resp.languages;
+        console.log(resp.languages);
         this.hashtags = resp.hashtags;
         this.total = resp.total;
         this.loading = false;

@@ -3,7 +3,7 @@
         <p>
             <span class="loading mr-4" title="Loading..."></span>
             <strong class="font-semibold">Loading...</strong>
-            Please wait while this content loads.
+            Please wait...
         </p>
     </div>
 </template>
