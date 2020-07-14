@@ -1,6 +1,6 @@
 <template>
   <div>
-    <nav class="py-8 section ~urge !high w-full px-8">
+    <nav class="py-8 section ~urge !high w-full px-8" v-if="!loading">
       <div class="max-w-3xl mx-auto">
         <div class="text-center">
         <h2 class="tracking-wide uppercase heading">
@@ -26,7 +26,7 @@
         </p>
       </article>
 
-      <span class="loading" v-if="loading" title="Loading..."></span>
+      <LoadingPlaceholder v-if="loading"></LoadingPlaceholder>
     </section>
   </div>
 </template>
@@ -34,11 +34,13 @@
 <script>
 import { getStats } from "./api";
 import SearchBox from "@/components/SearchBox.vue";
+import LoadingPlaceholder from "@/components/LoadingPlaceholder.vue";
 
 export default {
   name: "App",
   components: {
-    SearchBox
+    SearchBox,
+    LoadingPlaceholder
   },
   data() {
     return {
