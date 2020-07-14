@@ -37,7 +37,7 @@ export default {
         this.archives,
         i => (archiveNames[i] || { name: "Unknown" }).name
       ),
-      hashtagChartData: this.dictToChartData(this.hashtags, i => i)
+      hashtagChartData: this.dictToChartData(this.hashtags, i => i.startsWith("#") ? i : "#" + i)
     };
   },
   methods: {
