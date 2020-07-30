@@ -10,11 +10,14 @@
             >(anonymized)</span
           >
         </span>
-        <span v-if="data.user_display_name !== data.userid" class="">
+        <span v-if="data.user_display_name !== data.userid" class="cursor-pointer">
           @{{ data.user_screen_name }}
+        <span class="icon">
+          <font-awesome-icon icon="info-circle" class="text-neutral-500" size="xs" />
+        </span>
         </span>
         <span v-if="userDetail">
-          &bull; {{ data.follower_count.toLocaleString() }} followers
+          &bull; {{ data.follower_count.toLocaleString() }} followers &bull; {{archiveName(data._archive)}}
         </span>
       </p>
     </div>
@@ -51,11 +54,14 @@
 </template>
 
 <script>
+import archiveNames from "../assets/archives";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import {
   faRetweet,
   faHeart,
-  faComment
+  faComment,
+  faInfoCircle,
+  faInfo
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
@@ -63,13 +69,18 @@ export default {
   props: ["data"],
   name: "Tweet",
   components: { FontAwesomeIcon },
+  methods: {
+    archiveName(archive) {
+      return (archiveNames[archive] || { name: "Unknown Archive" }).name;
+    }
+  },
   data() {
     return {
       userDetail: false
     };
   },
   created() {
-    library.add(faRetweet, faHeart, faComment);
+    library.add(faRetweet, faHeart, faComment, faInfoCircle);
   }
 };
 </script>

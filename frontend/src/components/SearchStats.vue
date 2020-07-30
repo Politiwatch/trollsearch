@@ -1,6 +1,6 @@
 <template>
   <section>
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+    <div class="grid grid-cols-3 gap-3">
       <div>
         <p class="label text-center mb-2 font-semibold">Languages</p>
         <pie-chart :chart-data="languageChartData" :options="{legend: {display: false}}" />

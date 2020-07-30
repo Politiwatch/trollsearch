@@ -1,7 +1,7 @@
 <template>
   <div>
     <nav class="py-8 section ~urge !high w-full px-8" v-if="!loading">
-      <div class="max-w-3xl mx-auto">
+      <div class="max-w-xl mx-auto">
         <div class="text-center">
           <h2 class="tracking-wide uppercase heading">
             <router-link to="/">Twitter Disinformation Archives</router-link>
