@@ -16,7 +16,11 @@
         <div class="grid grid-cols-1 gap-6 mt-1">
           <div>
             <p class="mb-1 label">Time range</p>
-            <DatePicker v-model="timeRange" mode="range" @input="update"></DatePicker>
+            <DatePicker
+              v-model="timeRange"
+              mode="range"
+              @input="update"
+            ></DatePicker>
           </div>
           <div>
             <p class="mb-1 label">Languages</p>

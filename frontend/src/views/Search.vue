@@ -2,17 +2,32 @@
   <section class="search md:flex">
     <LoadingPlaceholder v-if="loading" class="w-full" />
     <div v-if="!loading" class="w-full">
-      <p class="pb-8 text-center">There are {{ total.toLocaleString() }} total results.</p>
+      <p class="pb-8 text-center">
+        There are {{ total.toLocaleString() }} total results.
+      </p>
       <div v-if="total > 0">
-        <SearchStats :languages="languages" :hashtags="hashtags" :archives="archives" :total="total" />
+        <SearchStats
+          :languages="languages"
+          :hashtags="hashtags"
+          :archives="archives"
+          :total="total"
+        />
         <hr class="h-8 sep" />
         <Tweet v-for="tweet in results" :key="tweet.tweetid" :data="tweet" />
-        <button @click="loadMore" v-if="results.length < total" class="button ~urge" :class="{ loading: searching }">Load more...</button>
+        <button
+          @click="loadMore"
+          v-if="results.length < total"
+          class="button ~urge"
+          :class="{ loading: searching }"
+        >
+          Load more...
+        </button>
         <p v-if="results.length >= total">No more tweets to display.</p>
       </div>
       <div v-if="total == 0">
         <aside class="aside ~warning">
-          <strong>No tweets matched your search.</strong> Try a less specific query by reducing your search terms and/or by using fewer filters.
+          <strong>No tweets matched your search.</strong> Try a less specific
+          query by reducing your search terms and/or by using fewer filters.
         </aside>
       </div>
     </div>

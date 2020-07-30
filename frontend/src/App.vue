@@ -16,14 +16,19 @@
         </div>
       </div>
     </nav>
-    <section class="container lg:max-w-3xl min-h-screen py-12 max-w-full px-4 lg:mx-auto lg:my-30">
+    <section
+      class="container lg:max-w-3xl min-h-screen py-12 max-w-full px-4 lg:mx-auto lg:my-30"
+    >
       <router-view v-if="!loading && !error" />
 
-      <article class="card ~critical !high content max-w-lg mx-auto" v-if="error">
+      <article
+        class="card ~critical !high content max-w-lg mx-auto"
+        v-if="error"
+      >
         <h3>An error occured</h3>
         <p>
-          Something went wrong while trying to load the page. Try again, or check
-          the console for details.
+          Something went wrong while trying to load the page. Try again, or
+          check the console for details.
         </p>
       </article>
 
