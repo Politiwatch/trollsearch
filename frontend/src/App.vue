@@ -66,7 +66,7 @@ export default {
           this.stats = stats;
           this.loading = false;
         },
-        error => {
+        () => {
           this.loading = false;
           this.error = true;
         }
