@@ -2,21 +2,21 @@
   <section>
     <div class="grid grid-cols-3 gap-3">
       <div>
-        <p class="label text-center mb-2 font-semibold">Languages</p>
+        <p class="label text-center mb-2 font-semibold">Languages (Top 50)</p>
         <pie-chart
           :chart-data="languageChartData"
           :options="{ legend: { display: false } }"
         />
       </div>
       <div>
-        <p class="label text-center mb-2 font-semibold">Archives</p>
+        <p class="label text-center mb-2 font-semibold">Archives (Top 50)</p>
         <pie-chart
           :chart-data="archiveChartData"
           :options="{ legend: { display: false } }"
         />
       </div>
       <div>
-        <p class="label text-center mb-2 font-semibold">Hashtags</p>
+        <p class="label text-center mb-2 font-semibold">Hashtags (Top 50)</p>
         <pie-chart
           :chart-data="hashtagChartData"
           :options="{ legend: { display: false } }"
