@@ -5,7 +5,7 @@
 
 [[redirects]]
   from = "/*"
-  to = "/"
+  to = "/index.html"
   status = 200
 
 [context.production.environment]
