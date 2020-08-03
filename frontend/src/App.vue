@@ -67,7 +67,6 @@ export default {
           this.loading = false;
         },
         error => {
-          console.error(error);
           this.loading = false;
           this.error = true;
         }
