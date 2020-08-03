@@ -3,7 +3,6 @@ export function performQuery(query, onsuccess, onfailure) {
   Object.keys(query).map(key => {
     url.searchParams.set(key, query[key]);
   });
-  console.log(url);
   fetch(url, {
     mode: "cors"
   })
