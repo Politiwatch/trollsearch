@@ -2,3 +2,6 @@
   base = "frontend/"
   publish = "frontend/dist/"
   command = "npm run build"
+
+[context.production.environment]
+  API_LOCATION="https://api.disinfo.politiwatch.org/"
