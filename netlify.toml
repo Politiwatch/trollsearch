@@ -7,6 +7,7 @@
   from = "/*"
   to = "/index.html"
   status = 200
+  force = true
 
 [context.production.environment]
   VUE_APP_API_LOCATION="https://disinfoapi.politiwatch.org/"
