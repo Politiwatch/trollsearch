@@ -58,7 +58,6 @@ export default {
       let colors = (palette("tol-rainbow", labels.length) || []).map(
         hex => "#" + hex
       );
-      console.log(colors);
       return {
         datasets: [
           {

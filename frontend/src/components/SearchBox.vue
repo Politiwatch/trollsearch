@@ -174,7 +174,6 @@ export default {
       return (languageNames[langCode] || { name: "Unknown" }).name;
     },
     archiveName: function(archiveCode) {
-      console.log(archiveCode);
       return (archiveNames[archiveCode] || { name: "Unknown" }).name;
     },
     performSearch: function() {
