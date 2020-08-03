@@ -4,4 +4,4 @@
   command = "npm run build"
 
 [context.production.environment]
-  VUE_APP_API_LOCATION="http://35.202.21.207/"
+  VUE_APP_API_LOCATION="https://disinfoapi.politiwatch.org/"
