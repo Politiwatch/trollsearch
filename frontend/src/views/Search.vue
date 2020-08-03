@@ -75,7 +75,6 @@ export default {
         this.results.push(...resp.results);
         this.archives = resp.archives;
         this.languages = resp.languages;
-        console.log(resp.languages);
         this.hashtags = resp.hashtags;
         this.total = resp.total;
         this.loading = false;
