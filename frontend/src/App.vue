@@ -25,7 +25,7 @@
         class="card ~critical !high content max-w-lg mx-auto"
         v-if="error"
       >
-        <h3>An error occured</h3>
+        <h3>An error occurred</h3>
         <p>
           Something went wrong while trying to load the page. Try again, or
           check the console for details.
