@@ -96,7 +96,10 @@ class SearchResource(Resource):
                 "tweet_time",
             ]:
                 raise "invalid sort field"
-            return (s[4:], pymongo.ASCENDING if s[0:4] == "asc_" else pymongo.DESCENDING)
+            return (
+                s[4:],
+                pymongo.ASCENDING if s[0:4] == "asc_" else pymongo.DESCENDING,
+            )
 
         parser.add_argument(
             "sort",
@@ -163,32 +166,47 @@ class SearchResource(Resource):
         return {
             "total": db.tweets.count_documents(params),
             "results": list(
-                db.tweets.find(params).sort("like_count", -1).skip((args["page"] or 0) * 25).limit(25)
+                db.tweets.find(params)
+                .sort("like_count", -1)
+                .skip((args["page"] or 0) * 25)
+                .limit(25)
             ),
-            "archives": {a["_id"]: a["count"] for a in
-                db.tweets.aggregate([
-                    {"$match": params},
-                    {"$unwind": "$_archive"},
-                    {"$group": {"_id": "$_archive", "count": {"$sum": 1}}},
-                    {"$sort": {"count": -1}},
-                    {"$limit": 50},
-                ])},
-            "languages": {a["_id"]: a["count"] for a in
-                db.tweets.aggregate([
-                    {"$match": params},
-                    {"$unwind": "$tweet_language"},
-                    {"$group": {"_id": "$tweet_language", "count": {"$sum": 1}}},
-                    {"$sort": {"count": -1}},
-                    {"$limit": 50},
-                ])},
-            "hashtags": {a["_id"]: a["count"] for a in
-                db.tweets.aggregate([
-                    {"$match": params},
-                    {"$unwind": "$hashtags"},
-                    {"$group": {"_id": "$hashtags", "count": {"$sum": 1}}},
-                    {"$sort": {"count": -1}},
-                    {"$limit": 50},
-                ])}
+            "archives": {
+                a["_id"]: a["count"]
+                for a in db.tweets.aggregate(
+                    [
+                        {"$match": params},
+                        {"$unwind": "$_archive"},
+                        {"$group": {"_id": "$_archive", "count": {"$sum": 1}}},
+                        {"$sort": {"count": -1}},
+                        {"$limit": 50},
+                    ]
+                )
+            },
+            "languages": {
+                a["_id"]: a["count"]
+                for a in db.tweets.aggregate(
+                    [
+                        {"$match": params},
+                        {"$unwind": "$tweet_language"},
+                        {"$group": {"_id": "$tweet_language", "count": {"$sum": 1}}},
+                        {"$sort": {"count": -1}},
+                        {"$limit": 50},
+                    ]
+                )
+            },
+            "hashtags": {
+                a["_id"]: a["count"]
+                for a in db.tweets.aggregate(
+                    [
+                        {"$match": params},
+                        {"$unwind": "$hashtags"},
+                        {"$group": {"_id": "$hashtags", "count": {"$sum": 1}}},
+                        {"$sort": {"count": -1}},
+                        {"$limit": 50},
+                    ]
+                )
+            },
         }
 
 
@@ -199,15 +217,21 @@ class StatsResource(Resource):
         # last updated
         # eventually: aggregate stats (averages, etc)
         return {
-            "total_tweets": db.tweets.count_documents({}),
+            "total_tweets": db.tweets.estimated_document_count(),
             "archives": [
-                {
-                    "name": archive,
-                    "tweets": db.tweets.count_documents({"_archive": archive}),
-                }
-                for archive in db.tweets.distinct("_archive")
+                {"name": item["_id"], "tweets": item["count"]}
+                for item in db.tweets.aggregate(
+                    [
+                        {"$group": {"_id": "$_archive", "count": {"$sum": 1}}},
+                        {"$sort": {"count": -1}},
+                    ]
+                )
             ],
-            "languages": [lang for lang in db.tweets.distinct("tweet_language") if lang.strip() != ""]
+            "languages": [
+                lang
+                for lang in db.tweets.distinct("tweet_language")
+                if lang.strip() != ""
+            ],
         }
 
 

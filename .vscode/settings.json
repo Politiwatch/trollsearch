@@ -1,3 +1,4 @@
 {
-    "python.pythonPath": "/home/miles/.local/share/virtualenvs/trollsearch-IzzQzgW1/bin/python"
+    "python.pythonPath": "/home/miles/.local/share/virtualenvs/trollsearch-IzzQzgW1/bin/python",
+    "python.formatting.provider": "black"
 }
