@@ -238,5 +238,10 @@ class StatsResource(Resource):
 api.add_resource(StatsResource, "/")
 api.add_resource(SearchResource, "/search")
 
+@app.after_request
+def add_header(response):
+    response.cache_control.max_age = 24*60*60
+    return response
+
 if __name__ == "__main__":
     app.run(debug=os.getenv("DEBUG", "False") == "True")
