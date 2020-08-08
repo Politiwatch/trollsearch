@@ -1,0 +1,25 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: trollsearch-import-job-ira-2018
+spec:
+  template:
+    spec:
+      containers:
+        - name: trollsearch-backend
+          image: politiwatch/trollsearch:latest
+          command:
+            [
+              "sh",
+              "/backend/import/run.sh"
+            ]
+          env:
+          - name: MONGODB_HOST
+            value: "mongodb://trollsearch-mongodb-0.trollsearch-mongodb-service:27017/trollsearch"
+          - name: ARCHIVE_URL
+            value: "https://storage.googleapis.com/twitter-election-integrity/hashed/2018_10/ira/ira_tweets_csv_hashed.zip"
+          - name: FILE_NAME
+            value: "ira_tweets_csv_hashed.zip"
+          - name: ARCHIVE_CODE
+            value: ira_2018
+      restartPolicy: Never
