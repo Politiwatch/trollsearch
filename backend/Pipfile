@@ -15,6 +15,7 @@ flask = "*"
 flask-restful = "*"
 dateparser = "*"
 flask-cors = "*"
+gunicorn = "*"
 
 [pipenv]
 allow_prereleases = true
