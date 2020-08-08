@@ -1,7 +1,7 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: trollsearch-import-job-ira-2018
+  name: trollsearch-import-job-russia-jan-2019
 spec:
   template:
     spec:
@@ -23,11 +23,11 @@ spec:
           - name: MONGODB_HOST
             value: "mongodb://trollsearch-mongodb-0.trollsearch-mongodb-service:27017/trollsearch"
           - name: ARCHIVE_URL
-            value: "https://storage.googleapis.com/twitter-election-integrity/hashed/2018_10/ira/ira_tweets_csv_hashed.zip"
+            value: "https://storage.googleapis.com/twitter-election-integrity/hashed/2019_01/russia_201901_1/russia_201901_1_tweets_csv_hashed.zip"
           - name: FILE_NAME
-            value: "ira_tweets_csv_hashed.csv"
+            value: "russian_linked_tweets_csv_hashed.csv"
           - name: ARCHIVE_CODE
-            value: ira_2018
+            value: russia_jan_2019
       restartPolicy: Never
       tolerations:
       - key: kubernetes.azure.com/scalesetpriority

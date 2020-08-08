@@ -23,7 +23,6 @@ spec:
       role: mongo
       environment: prod
   serviceName: trollsearch-mongodb-service
-  replicas: 1
   template:
     metadata:
       labels:
@@ -40,14 +39,12 @@ spec:
           - '0.0.0.0'
         ports:
           - containerPort: 27017
+        resources:
+          requests:
+            memory: 1.5Gi
         volumeMounts:
           - name: trollsearch-mongodb-disk
             mountPath: /data/db
-      - name: mongo-sidecar
-        image: cvallance/mongo-k8s-sidecar
-        env:
-          - name: MONGO_SIDECAR_POD_LABELS
-            value: "role=mongo,environment=prod"
   volumeClaimTemplates:
     - metadata:
         name: trollsearch-mongodb-disk
@@ -66,16 +63,16 @@ spec:
   selector:
     matchLabels:
       app: trollsearch-backend
-  replicas: 2
+  replicas: 3
   template:
     metadata:
       labels:
         app: trollsearch-backend
     spec:
       tolerations:
-        - key: kubernetes.azure.com/scalesetpriority
-          value: spot
-          effect: NoSchedule
+      - key: kubernetes.azure.com/scalesetpriority
+        value: spot
+        effect: NoSchedule
       containers:
       - name: trollsearch-backend
         image: politiwatch/trollsearch:latest
