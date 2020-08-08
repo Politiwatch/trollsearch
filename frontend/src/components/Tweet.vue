@@ -16,13 +16,13 @@
           class="cursor-pointer"
         >
           @{{ data.user_screen_name }}
-          <span class="icon">
-            <font-awesome-icon
-              icon="info-circle"
-              class="text-neutral-500"
-              size="xs"
-            />
-          </span>
+        </span>
+        <span class="icon">
+          <font-awesome-icon
+            icon="info-circle"
+            class="text-neutral-500"
+            size="xs"
+          />
         </span>
         <span v-if="userDetail">
           &bull; {{ data.follower_count.toLocaleString() }} followers &bull;
