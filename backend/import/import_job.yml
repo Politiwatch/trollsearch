@@ -8,6 +8,7 @@ spec:
       containers:
         - name: trollsearch-backend
           image: politiwatch/trollsearch:latest
+          imagePullPolicy: Always
           command:
             [
               "sh",
