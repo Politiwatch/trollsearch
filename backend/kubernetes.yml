@@ -60,3 +60,27 @@ spec:
           requests:
             storage: 100Gi
 ---
+apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
+kind: Deployment
+metadata:
+  name: trollsearch-backend
+spec:
+  selector:
+    matchLabels:
+      app: trollsearch-backend
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: trollsearch-backend
+    spec:
+      containers:
+      - name: trollsearch-backend
+        image: politiwatch/trollsearch:master
+        ports:
+        - containerPort: 8000
+        env:
+        - name: PORT
+          value: 8000
+        - name: MONGODB_HOST
+          value: "mongodb://mongo-0.mongo:27017/trollsearch"
