@@ -72,6 +72,10 @@ spec:
       labels:
         app: trollsearch-backend
     spec:
+      tolerations:
+        - key: kubernetes.azure.com/scalesetpriority
+          value: spot
+          effect: NoSchedule
       containers:
       - name: trollsearch-backend
         image: politiwatch/trollsearch:latest

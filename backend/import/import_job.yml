@@ -14,13 +14,22 @@ spec:
               "sh",
               "/backend/import/run.sh"
             ]
+          resources:
+            requests:
+              cpu: "1"
+              memory: 2Gi
+              ephemeral-storage: 20Gi
           env:
           - name: MONGODB_HOST
             value: "mongodb://trollsearch-mongodb-0.trollsearch-mongodb-service:27017/trollsearch"
           - name: ARCHIVE_URL
             value: "https://storage.googleapis.com/twitter-election-integrity/hashed/2018_10/ira/ira_tweets_csv_hashed.zip"
           - name: FILE_NAME
-            value: "ira_tweets_csv_hashed.zip"
+            value: "ira_tweets_csv_hashed.csv"
           - name: ARCHIVE_CODE
             value: ira_2018
       restartPolicy: Never
+      tolerations:
+      - key: kubernetes.azure.com/scalesetpriority
+        value: spot
+        effect: NoSchedule
