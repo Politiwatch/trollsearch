@@ -218,15 +218,7 @@ class StatsResource(Resource):
         # eventually: aggregate stats (averages, etc)
         return {
             "total_tweets": db.tweets.estimated_document_count(),
-            "archives": [
-                {"name": item["_id"], "tweets": item["count"]}
-                for item in db.tweets.aggregate(
-                    [
-                        {"$group": {"_id": "$_archive", "count": {"$sum": 1}}},
-                        {"$sort": {"count": -1}},
-                    ]
-                )
-            ],
+            "archives": db.tweets.distinct("_archive"),
             "languages": [
                 lang
                 for lang in db.tweets.distinct("tweet_language")

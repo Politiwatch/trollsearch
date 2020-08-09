@@ -40,10 +40,9 @@
       <article
         class="card ~neutral !low"
         v-for="archive in stats.archives"
-        :key="archive.name"
+        :key="archive"
       >
-        <p class="label">{{ archiveName(archive.name) }}</p>
-        <p>{{ archive.tweets.toLocaleString() }} tweets</p>
+        <p class="label">{{ archiveName(archive) }}</p>
       </article>
     </div>
     <p>

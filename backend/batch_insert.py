@@ -11,12 +11,12 @@ def batch_insert(file, archive_name):
     db = database.get_client()["twitter"]
 
     print("Creating indexes...")
-    db.tweets.create_index([("$**", pymongo.TEXT)], name="text_index")
-    db.tweets.create_index([("tweet_language", 1)], name="language_index")
-    db.tweets.create_index([("_archive", 1)], name="archive_index")
-    db.tweets.create_index([("like_count", -1)], name="like_index")
-    db.tweets.create_index([("retweet_count", -1)], name="retweet_index")
-    db.tweets.create_index([("follower_count", -1)], name="follower_index")
+    db.tweets.create_index([("$**", pymongo.TEXT)], name="text_index", background=True)
+    db.tweets.create_index([("tweet_language", pymongo.ASCENDING)], name="language_index", background=True)
+    db.tweets.create_index([("_archive", pymongo.ASCENDING)], name="archive_index", background=True)
+    db.tweets.create_index([("like_count", pymongo.DESCENDING)], name="like_index", background=True)
+    db.tweets.create_index([("retweet_count", pymongo.DESCENDING)], name="retweet_index", background=True)
+    db.tweets.create_index([("follower_count", pymongo.DESCENDING)], name="follower_index", background=True)
 
 
     print("Loading & inserting tweets...")

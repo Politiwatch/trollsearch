@@ -29,7 +29,6 @@ spec:
         role: mongo
         environment: prod
     spec:
-      terminationGracePeriodSeconds: 10
       containers:
       - name: mongo
         image: mongo
@@ -41,7 +40,9 @@ spec:
           - containerPort: 27017
         resources:
           requests:
-            memory: 1.5Gi
+            memory: 2Gi
+          limits:
+            memory: 6Gi
         volumeMounts:
           - name: trollsearch-mongodb-disk
             mountPath: /data/db
