@@ -29,6 +29,10 @@ spec:
         role: mongo
         environment: prod
     spec:
+      tolerations:
+      - key: kubernetes.azure.com/scalesetpriority
+        value: spot
+        effect: NoSchedule
       containers:
       - name: mongo
         image: mongo
