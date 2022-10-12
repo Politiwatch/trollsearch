@@ -13,7 +13,7 @@
     "@fortawesome/vue-fontawesome": "^0.1.9",
     "a17t": "^0.2.3",
     "chart.js": "^2.9.4",
-    "cldr": "^5.6.0",
+    "cldr": "^7.2.0",
     "core-js": "^3.6.4",
     "debounce": "^1.2.0",
     "google-palette": "^1.1.0",
